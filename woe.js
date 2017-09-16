@@ -8,15 +8,13 @@ function exploreWikidataOntology(wikidataClass) {
 
 function showClassHierarchy(wikidataClass) {
 	const classHierarchy = document.getElementById('classHierarchy');
-	emptyNode(classHierarchy);
 	const classHierarchyIFrame = document.createElement('iframe');
 	classHierarchyIFrame.src = `https://tools.wmflabs.org/wikidata-todo/tree.html?q=${wikidataClass}&rp=P279`;
-	classHierarchy.appendChild(classHierarchyIFrame);
+	classHierarchy.replaceWith(classHierarchyIFrame);
 }
 
 function showCommonProperties(wikidataClass) {
 	const commonProperties = document.getElementById('commonProperties');
-	emptyNode(commonProperties);
 	const commonPropertiesIFrame = document.createElement('iframe');
 	const query = `
 SELECT ?property ?propertyLabel ?count WITH {
@@ -37,12 +35,11 @@ SELECT ?property ?propertyLabel ?count WITH {
 ORDER BY DESC(?count)
 `;
 	commonPropertiesIFrame.src = `https://query.wikidata.org/embed.html#${encodeURIComponent(query)}`;
-	commonProperties.appendChild(commonPropertiesIFrame);
+	commonProperties.replaceWith(commonPropertiesIFrame);
 }
 
 function showCommonStatements(wikidataClass) {
 	const commonStatements = document.getElementById('commonStatements');
-	emptyNode(commonStatements);
 	const commonStatementsIFrame = document.createElement('iframe');
 	const query = `
 SELECT ?property ?propertyLabel ?value ?valueLabel ?count WITH {
@@ -63,12 +60,7 @@ SELECT ?property ?propertyLabel ?value ?valueLabel ?count WITH {
 ORDER BY DESC(?count)
 `;
 	commonStatementsIFrame.src = `https://query.wikidata.org/embed.html#${encodeURIComponent(query)}`;
-	commonStatements.appendChild(commonStatementsIFrame);
-}
-
-function emptyNode(node) {
-	while (node.firstChild)
-		node.removeChild(node.firstChild);
+	commonStatements.replaceWith(commonStatementsIFrame);
 }
 
 document.addEventListener('DOMContentLoaded', e => {
