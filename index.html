@@ -12,9 +12,23 @@
     <h1 property="name">Wikidata ontology explorer</h1>
     <form id="mainForm">
       <h2>Select ontology</h2>
-      <div class="form-group">
-        <label for="wikidataClass">Wikidata class</label>
-        <input type="text" required pattern="Q[1-9][0-9]*" title="Wikidata entity ID" class="form-control" id="wikidataClass" placeholder="Q33506">
+      <div class="form-group form-check">
+        <fieldset class="form-group">
+          <input type="radio" name="ontologyType" id="ontologyTypeClass" checked class="form-check-input">
+          <label for="ontologyTypeClass" class="form-check-label">by class</label>
+          <fieldset class="form-group">
+            <label for="wikidataClass">Wikidata class</label>
+            <input type="text" required pattern="Q[1-9][0-9]*" title="Wikidata item ID" class="form-control" id="wikidataClass" placeholder="Q33506">
+          </fieldset>
+        </fieldset>
+        <fieldset class="form-group">
+          <input type="radio" name="ontologyType" id="ontologyTypeProperty" class="form-check-input">
+          <label for="ontologyTypeProperty" class="form-check-label">by property</label>
+          <fieldset disabled class="form-group">
+            <label for="wikidataProperty">Wikidata property</label>
+            <input type="text" required pattern="P[1-9][0-9]*" title="Wikidata property ID" class="form-control" id="wikidataProperty" placeholder="P4025">
+          </fieldset>
+        </fieldset>
       </div>
       <button type="submit" class="btn btn-primary">Explore</button>
     </form>

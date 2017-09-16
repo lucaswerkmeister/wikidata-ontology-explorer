@@ -63,9 +63,23 @@ ORDER BY DESC(?count)
 	commonStatements.replaceWith(commonStatementsIFrame);
 }
 
+function updateRadioChildren(form, radio) {
+	for (const fieldset of form.querySelectorAll('input[type=radio] ~ fieldset')) {
+		fieldset.disabled = true;
+	}
+	radio.parentElement.querySelector('fieldset').disabled = false;
+}
+
 document.addEventListener('DOMContentLoaded', e => {
-	document.getElementById('mainForm').addEventListener('submit', e => {
+	const mainForm = document.getElementById('mainForm');
+
+	mainForm.addEventListener('submit', e => {
         exploreWikidataOntology(document.getElementById('wikidataClass').value);
 		e.preventDefault();
 	});
+
+	for (const radio of mainForm.querySelectorAll('input[type=radio]')) {
+		radio.addEventListener('change', e => updateRadioChildren(mainForm, e.target));
+	}
+	updateRadioChildren(mainForm, mainForm.querySelector('input[type=radio]:checked'));
 });
