@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Wikidata ontology explorer</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="woe.js"></script>
+    <link rel="stylesheet" href="woe.css">
   </head>
   <body class="container" vocab="https://schema.org/" typeof="SoftwareApplication">
     <h1 property="name">Wikidata ontology explorer</h1>
@@ -13,7 +15,7 @@
         <label for="wikidataClass">Wikidata class</label>
         <input type="text" class="form-control" id="wikidataClass" placeholder="Q33506">
       </div>
-      <button type="submit" class="btn btn-primary" onclick="return false;">Explore</button>
+      <button type="submit" class="btn btn-primary" onclick="exploreWikidataOntology(document.getElementById('wikidataClass').value); return false;">Explore</button>
     </form>
     <div id="classHierarchy">
       <i>The class hierarchy will appear here.</i>
