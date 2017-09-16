@@ -1,18 +1,23 @@
 # Wikidata ontology explorer
 
-A small tool to quickly answer the question
+A small website to quickly answer the question
 “what do items like this typically look like on Wikidata?”
 
 ## Usage
 
+Open <https://lucaswerkmeister.github.io/wikidata-ontology-explorer/>.
+
 To explore the ontology of some class,
-enter the item ID of the class into the “Wikidata class” field
-and click the “Explore” button.
+enter the item ID of the class into the “Wikidata class” field.
 
 To explore the ontology of items using some property,
-select the “by property” radio button,
-enter the property ID of the property into the “Wikidata property” field
-and click the “Explore” button.
+select the “by property” radio button
+and enter the property ID of the property into the “Wikidata property” field.
+
+Click the “Explore” button.
+
+To explore more ontologies, repeat the above steps
+(but you don’t need to re-open the page).
 
 ## License
 
