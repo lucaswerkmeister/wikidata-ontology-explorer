@@ -1,3 +1,5 @@
+'use strict';
+
 function exploreWikidataOntology(wikidataClass) {
 	showClassHierarchy(wikidataClass);
 	showCommonProperties(wikidataClass);
