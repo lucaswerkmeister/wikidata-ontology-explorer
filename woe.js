@@ -6,8 +6,8 @@ function exploreWikidataOntology(ontology) {
 		const wikidataClass = ontology.wikidataClass;
 		const predicateObject = `wdt:P31/wdt:P279* wd:${wikidataClass}`;
 		showClassHierarchy(wikidataClass);
-		showCommonProperties(predicateObject);
-		showCommonStatements(predicateObject);
+		showCommonProperties(predicateObject, 'P31');
+		showCommonStatements(predicateObject, 'P31');
 		showClassOntologyDescription(wikidataClass);
 		break;
 	}
@@ -15,8 +15,8 @@ function exploreWikidataOntology(ontology) {
 		const wikidataProperty = ontology.wikidataProperty;
 		const predicateObject = `p:${wikidataProperty} []`;
 		hideClassHierarchy();
-		showCommonProperties(predicateObject);
-		showCommonStatements(predicateObject);
+		showCommonProperties(predicateObject, wikidataProperty);
+		showCommonStatements(predicateObject, wikidataProperty);
 		showPropertyOntologyDescription(wikidataProperty);
 		break;
 	}
@@ -41,7 +41,7 @@ function hideClassHierarchy() {
 	classHierarchyI.parentElement.hidden = true;
 }
 
-function showCommonProperties(predicateObject) {
+function showCommonProperties(predicateObject, removeProperty) {
 	const commonProperties = document.getElementById('commonProperties');
 	const commonPropertiesIFrame = document.createElement('iframe');
 	const query = `
@@ -51,7 +51,7 @@ SELECT ?property ?propertyLabel ?count WITH {
           ?p ?statement.
     ?property a wikibase:Property;
               wikibase:claim ?p.
-    FILTER(?property != wd:P31)
+    FILTER(?property != wd:${removeProperty})
   }
   GROUP BY ?property
   ORDER BY DESC(?count)
@@ -67,7 +67,7 @@ ORDER BY DESC(?count)
 	commonProperties.replaceWith(commonPropertiesIFrame);
 }
 
-function showCommonStatements(predicateObject) {
+function showCommonStatements(predicateObject, removeProperty) {
 	const commonStatements = document.getElementById('commonStatements');
 	const commonStatementsIFrame = document.createElement('iframe');
 	const query = `
@@ -77,7 +77,7 @@ SELECT ?property ?propertyLabel ?value ?valueLabel ?count WITH {
           ?wdt ?value.
     ?property a wikibase:Property;
               wikibase:directClaim ?wdt.
-    FILTER(?property != wd:P31)
+    FILTER(?property != wd:${removeProperty})
   }
   GROUP BY ?property ?value
   ORDER BY DESC(?count)
