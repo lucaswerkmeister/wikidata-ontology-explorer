@@ -8,7 +8,7 @@
     <script src="woe.js"></script>
     <link rel="stylesheet" href="woe.css">
   </head>
-  <body class="container" vocab="https://schema.org/" typeof="SoftwareApplication">
+  <body class="container my-3" vocab="https://schema.org/" typeof="SoftwareApplication">
     <h1 property="name">Wikidata ontology explorer</h1>
     <form>
       <div class="form-group">
@@ -17,16 +17,16 @@
       </div>
       <button type="submit" class="btn btn-primary" onclick="exploreWikidataOntology(document.getElementById('wikidataClass').value); return false;">Explore</button>
     </form>
-    <div id="classHierarchy">
+    <div id="classHierarchy" class="my-3">
       <i>The class hierarchy will appear here.</i>
     </div>
-    <div id="commonProperties">
+    <div id="commonProperties" class="my-3">
       <i>Common properties will appear here.</i>
     </div>
-    <div id="commonStatements">
+    <div id="commonStatements" class="my-3">
       <i>Common statements will appear here.</i>
     </div>
-    <footer>
+    <footer class="mx-auto">
       <div class="license-info">
         Wikidata ontology explorer.
         Copyright (C) 2017, <a property="author" href="https://lucaswerkmeister.de" typeof="Person">Lucas Werkmeister</a>.

@@ -2,3 +2,9 @@ iframe {
 	width: 100%;
 	height: 400px;
 }
+
+footer {
+	text-align: center;
+	width: 50%;
+	font-size: 75%;
+}
