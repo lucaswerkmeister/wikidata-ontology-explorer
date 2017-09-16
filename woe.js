@@ -8,6 +8,7 @@ function exploreWikidataOntology(ontology) {
 		showClassHierarchy(wikidataClass);
 		showCommonProperties(predicateObject);
 		showCommonStatements(predicateObject);
+		showClassOntologyDescription(wikidataClass);
 		break;
 	}
 	case 'property': {
@@ -16,6 +17,7 @@ function exploreWikidataOntology(ontology) {
 		hideClassHierarchy();
 		showCommonProperties(predicateObject);
 		showCommonStatements(predicateObject);
+		showPropertyOntologyDescription(wikidataProperty);
 		break;
 	}
 	}
@@ -89,6 +91,40 @@ ORDER BY DESC(?count)
 	commonStatementsIFrame.src = `https://query.wikidata.org/embed.html#${encodeURIComponent(query)}`;
 	commonStatementsIFrame.id = 'commonStatements';
 	commonStatements.replaceWith(commonStatementsIFrame);
+}
+
+function showClassOntologyDescription(wikidataClass) {
+	const ontologyDescription = document.getElementById('ontologyDescription');
+	ontologyDescription.textContent = '…';
+	const request = new XMLHttpRequest();
+	request.onreadystatechange = function() {
+		if (request.readyState === XMLHttpRequest.DONE) {
+			if (request.status === 200) {
+				const json = JSON.parse(request.responseText);
+				const label = json.entities[wikidataClass].labels.en.value; // TODO i18n
+				ontologyDescription.textContent = `Ontology of the ‘${label}’ class`;
+			}
+		}
+	};
+	request.open('GET', `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${wikidataClass}&origin=*`);
+	request.send();
+}
+
+function showPropertyOntologyDescription(wikidataProperty) {
+	const ontologyDescription = document.getElementById('ontologyDescription');
+	ontologyDescription.textContent = '…';
+	const request = new XMLHttpRequest();
+	request.onreadystatechange = function() {
+		if (request.readyState === XMLHttpRequest.DONE) {
+			if (request.status === 200) {
+				const json = JSON.parse(request.responseText);
+				const label = json.entities[wikidataProperty].labels.en.value; // TODO i18n
+				ontologyDescription.textContent = `Ontology of items using the ‘${label}’ property`;
+			}
+		}
+	};
+	request.open('GET', `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${wikidataProperty}&origin=*`);
+	request.send();
 }
 
 function updateRadioChildren(form, radio) {
