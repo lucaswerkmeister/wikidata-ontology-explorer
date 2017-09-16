@@ -10,6 +10,7 @@ function showClassHierarchy(wikidataClass) {
 	const classHierarchy = document.getElementById('classHierarchy');
 	const classHierarchyIFrame = document.createElement('iframe');
 	classHierarchyIFrame.src = `https://tools.wmflabs.org/wikidata-todo/tree.html?q=${wikidataClass}&rp=P279`;
+	classHierarchyIFrame.id = 'classHierarchy';
 	classHierarchy.replaceWith(classHierarchyIFrame);
 }
 
@@ -35,6 +36,7 @@ SELECT ?property ?propertyLabel ?count WITH {
 ORDER BY DESC(?count)
 `;
 	commonPropertiesIFrame.src = `https://query.wikidata.org/embed.html#${encodeURIComponent(query)}`;
+	commonPropertiesIFrame.id = 'commonProperties';
 	commonProperties.replaceWith(commonPropertiesIFrame);
 }
 
@@ -60,6 +62,7 @@ SELECT ?property ?propertyLabel ?value ?valueLabel ?count WITH {
 ORDER BY DESC(?count)
 `;
 	commonStatementsIFrame.src = `https://query.wikidata.org/embed.html#${encodeURIComponent(query)}`;
+	commonStatementsIFrame.id = 'commonStatements';
 	commonStatements.replaceWith(commonStatementsIFrame);
 }
 
