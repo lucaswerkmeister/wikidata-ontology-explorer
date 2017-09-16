@@ -13,7 +13,7 @@
     <form id="mainForm">
       <div class="form-group">
         <label for="wikidataClass">Wikidata class</label>
-        <input type="text" class="form-control" id="wikidataClass" placeholder="Q33506">
+        <input type="text" required pattern="Q[1-9][0-9]*" title="Wikidata entity ID" class="form-control" id="wikidataClass" placeholder="Q33506">
       </div>
       <button type="submit" class="btn btn-primary">Explore</button>
     </form>
