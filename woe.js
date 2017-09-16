@@ -27,6 +27,7 @@ function showClassHierarchy(wikidataClass) {
 	classHierarchyIFrame.src = `https://tools.wmflabs.org/wikidata-todo/tree.html?q=${wikidataClass}&rp=P279`;
 	classHierarchyIFrame.id = 'classHierarchy';
 	classHierarchy.replaceWith(classHierarchyIFrame);
+	classHierarchyIFrame.parentElement.hidden = false;
 }
 
 function hideClassHierarchy() {
@@ -35,6 +36,7 @@ function hideClassHierarchy() {
 	classHierarchyI.textContent = 'N/A';
 	classHierarchyI.id = 'classHierarchy';
 	classHierarchy.replaceWith(classHierarchyI);
+	classHierarchyI.parentElement.hidden = true;
 }
 
 function showCommonProperties(predicateObject) {
