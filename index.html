@@ -8,7 +8,22 @@
   </head>
   <body class="container" vocab="https://schema.org/" typeof="SoftwareApplication">
     <h1 property="name">Wikidata ontology explorer</h1>
-
+    <form>
+      <div class="form-group">
+        <label for="wikidataClass">Wikidata class</label>
+        <input type="text" class="form-control" id="wikidataClass" placeholder="Q33506">
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="return false;">Explore</button>
+    </form>
+    <div id="classHierarchy">
+      <i>The class hierarchy will appear here.</i>
+    </div>
+    <div id="commonProperties">
+      <i>Common properties will appear here.</i>
+    </div>
+    <div id="commonStatements">
+      <i>Common statements will appear here.</i>
+    </div>
     <footer>
       <div class="license-info">
         Wikidata ontology explorer.
