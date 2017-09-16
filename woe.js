@@ -68,3 +68,10 @@ function emptyNode(node) {
 	while (node.firstChild)
 		node.removeChild(node.firstChild);
 }
+
+document.addEventListener('DOMContentLoaded', e => {
+	document.getElementById('mainForm').addEventListener('submit', e => {
+        exploreWikidataOntology(document.getElementById('wikidataClass').value);
+		e.preventDefault();
+	});
+});
