@@ -1,9 +1,24 @@
 'use strict';
 
-function exploreWikidataOntology(wikidataClass) {
-	showClassHierarchy(wikidataClass);
-	showCommonProperties(wikidataClass);
-	showCommonStatements(wikidataClass);
+function exploreWikidataOntology(ontology) {
+	switch (ontology.type) {
+	case 'class': {
+		const wikidataClass = ontology.wikidataClass;
+		const predicateObject = `wdt:P31/wdt:P279* wd:${wikidataClass}`;
+		showClassHierarchy(wikidataClass);
+		showCommonProperties(predicateObject);
+		showCommonStatements(predicateObject);
+		break;
+	}
+	case 'property': {
+		const wikidataProperty = ontology.wikidataProperty;
+		const predicateObject = `p:${wikidataProperty} []`;
+		hideClassHierarchy();
+		showCommonProperties(predicateObject);
+		showCommonStatements(predicateObject);
+		break;
+	}
+	}
 }
 
 function showClassHierarchy(wikidataClass) {
@@ -14,13 +29,21 @@ function showClassHierarchy(wikidataClass) {
 	classHierarchy.replaceWith(classHierarchyIFrame);
 }
 
-function showCommonProperties(wikidataClass) {
+function hideClassHierarchy() {
+	const classHierarchy = document.getElementById('classHierarchy');
+	const classHierarchyI = document.createElement('i');
+	classHierarchyI.textContent = 'N/A';
+	classHierarchyI.id = 'classHierarchy';
+	classHierarchy.replaceWith(classHierarchyI);
+}
+
+function showCommonProperties(predicateObject) {
 	const commonProperties = document.getElementById('commonProperties');
 	const commonPropertiesIFrame = document.createElement('iframe');
 	const query = `
 SELECT ?property ?propertyLabel ?count WITH {
   SELECT ?property (COUNT(DISTINCT ?statement) AS ?count) WHERE {
-    ?item wdt:P31/wdt:P279* wd:${wikidataClass};
+    ?item ${predicateObject};
           ?p ?statement.
     ?property a wikibase:Property;
               wikibase:claim ?p.
@@ -40,13 +63,13 @@ ORDER BY DESC(?count)
 	commonProperties.replaceWith(commonPropertiesIFrame);
 }
 
-function showCommonStatements(wikidataClass) {
+function showCommonStatements(predicateObject) {
 	const commonStatements = document.getElementById('commonStatements');
 	const commonStatementsIFrame = document.createElement('iframe');
 	const query = `
 SELECT ?property ?propertyLabel ?value ?valueLabel ?count WITH {
   SELECT ?property ?value (COUNT(DISTINCT ?item) AS ?count) WHERE {
-    ?item wdt:P31/wdt:P279* wd:${wikidataClass};
+    ?item ${predicateObject};
           ?wdt ?value.
     ?property a wikibase:Property;
               wikibase:directClaim ?wdt.
@@ -77,7 +100,17 @@ document.addEventListener('DOMContentLoaded', e => {
 	const mainForm = document.getElementById('mainForm');
 
 	mainForm.addEventListener('submit', e => {
-        exploreWikidataOntology(document.getElementById('wikidataClass').value);
+		if (document.getElementById('ontologyTypeClass').checked) {
+			exploreWikidataOntology({
+				type: 'class',
+				wikidataClass: document.getElementById('wikidataClass').value
+			});
+		} else if (document.getElementById('ontologyTypeProperty').checked) {
+			exploreWikidataOntology({
+				type: 'property',
+				wikidataProperty: document.getElementById('wikidataProperty').value
+			});
+		}
 		e.preventDefault();
 	});
 
