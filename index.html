@@ -11,6 +11,7 @@
   <body class="container my-3" vocab="https://schema.org/" typeof="SoftwareApplication">
     <h1 property="name">Wikidata ontology explorer</h1>
     <form id="mainForm">
+      <h2>Select ontology</h2>
       <div class="form-group">
         <label for="wikidataClass">Wikidata class</label>
         <input type="text" required pattern="Q[1-9][0-9]*" title="Wikidata entity ID" class="form-control" id="wikidataClass" placeholder="Q33506">
@@ -18,12 +19,15 @@
       <button type="submit" class="btn btn-primary">Explore</button>
     </form>
     <div class="my-3">
+      <h2>Class hierarchy</h2>
       <i id="classHierarchy">The class hierarchy will appear here.</i>
     </div>
     <div class="my-3">
+      <h2>Common properties</h2>
       <i id="commonProperties">Common properties will appear here.</i>
     </div>
     <div class="my-3">
+      <h2>Common statements</h2>
       <i id="commonStatements">Common statements will appear here.</i>
     </div>
     <footer class="mx-auto">
